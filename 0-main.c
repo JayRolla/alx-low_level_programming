@@ -1,33 +1,24 @@
-#include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
-#include "lists.h"
+#include <stdlib.h>
+#include "main.h"
 
 /**
  * main - check the code
- * 
+ *
  * Return: Always 0.
  */
-int main(void)
+int main(int ac, char **av)
 {
-    listint_t *head;
-    listint_t *new;
-    listint_t hello = {8, NULL};
-    size_t n;
+    ssize_t n;
 
-    head = &hello;
-    new = malloc(sizeof(listint_t));
-    if (new == NULL)
+    if (ac != 2)
     {
-        printf("Error\n");
-        return (1);
+        dprintf(2, "Usage: %s filename\n", av[0]);
+        exit(1);
     }
-    new->n = 9;
-    new->next = head;
-    head = new;
-    n = print_listint(head);
-    printf("-> %lu elements\n", n);
-    free(new);
+    n = read_textfile(av[1], 114);
+    printf("\n(printed chars: %li)\n", n);
+    n = read_textfile(av[1], 1024);
+    printf("\n(printed chars: %li)\n", n);
     return (0);
 }
-
